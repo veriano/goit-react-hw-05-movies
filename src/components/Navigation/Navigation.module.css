@@ -1,0 +1,19 @@
+.List {
+    display: flex;
+    list-style: none;
+}
+
+.Item {
+    margin-right: 20px;
+    font-size: 40px;
+}
+
+.Base {
+    text-decoration: none;
+    color:blue;
+}
+
+.Active {
+    text-decoration: none;
+    color:brown;
+}
