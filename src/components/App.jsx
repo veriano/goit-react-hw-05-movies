@@ -1,28 +1,26 @@
-import { lazy } from 'react';
+// import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './HomePage';
 import AppBar from './AppBar';
-const MoviesPage = lazy(() => import('./MoviesPage'));
-const MovieDetailsPage = lazy(() => import('./MovieDetailsPage'));
+// import NoMatch from './NoMatch';
+import MoviesPage from'./MoviesPage';
+import MovieDetailsPage from './MovieDetailsPage';
 
 
 function App () {
   return (
     <div>
       <AppBar />
+      <Routes>
+        <Route path='/' index element={ <HomePage /> } />
+        
+        <Route path='/movies/:movieId' element={ <MovieDetailsPage /> } exact/>
+
+        <Route path='/movies' element={ <MoviesPage /> } />
+
+        {/* <Route path='*' element={ <NoMatch /> } /> */}
+      </Routes>
       
-      <HomePage />
-      
-
-        <Routes>
-
-          <Route path='/' component={ HomePage } />
-
-          <Route path='/movies' component={ MoviesPage } />
-
-          <Route path='/movies/:movieId' component={ MovieDetailsPage } />
-
-        </Routes>
     </div>
   );
 }

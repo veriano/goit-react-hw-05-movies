@@ -23,7 +23,7 @@ const HomePage = () => {
                 <h1 className={ s.title }>Trending today</h1>
                 <ul className={ s.listOfMovies }>
                 {names && names.map(name => <li key={ name.id }>
-                    <Link to={`/movie/${name.id}`} className={ s.linksMovies }>{ name.title }</Link>
+                    <Link to={`/movies/${name.id}`} className={ s.linksMovies }>{ name.title }</Link>
                     </li>)}
                 </ul>
             </div>

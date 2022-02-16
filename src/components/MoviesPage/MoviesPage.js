@@ -14,7 +14,7 @@ const MoviesPage = ({ onSubmitHandler }) => {
         e.preventDefault();
 
         if(name.trim() === '') {
-            alert.error('Пожалуйста введите поисковое слово.');
+            alert('Пожалуйста введите поисковое слово.');
             return;
         }
 
@@ -25,7 +25,7 @@ const MoviesPage = ({ onSubmitHandler }) => {
 
     return(
         <>
-        <form className="SearchForm" onSubmit={ handleSubmit }>
+            <form className={ s.SearchForm } onSubmit={ handleSubmit }>
             <input
                 className={ s.SearchFormInput }
                 type="text"
