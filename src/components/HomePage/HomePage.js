@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import s from './HomePage.module.css';
 const KEY = '61d280fbc4e0ab3fee827783c53f7600';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const axios = require('axios');
@@ -19,11 +20,11 @@ const HomePage = () => {
     },[])
         return (
             <div>
-                <h1>Trending today</h1>
-                <ul>
+                <h1 className={ s.title }>Trending today</h1>
+                <ul className={ s.listOfMovies }>
                 {names && names.map(name => <li key={ name.id }>
-                                    <link to={`/movie/${name.id}`}>{ name }</link>
-                                    </li>)}
+                    <Link to={`/movie/${name.id}`} className={ s.linksMovies }>{ name.title }</Link>
+                    </li>)}
                 </ul>
             </div>
         )

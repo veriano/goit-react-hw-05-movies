@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import s from './App.module.css';
-// import Navigation from './Navigation';
 import HomePage from './HomePage';
+import AppBar from './AppBar';
 const MoviesPage = lazy(() => import('./MoviesPage'));
 const MovieDetailsPage = lazy(() => import('./MovieDetailsPage'));
 
@@ -10,12 +10,10 @@ const MovieDetailsPage = lazy(() => import('./MovieDetailsPage'));
 function App () {
   return (
     <div>
-      <nav className={ s.List }>
-        <NavLink to='/' className={ s.Base }><b>Home</b></NavLink>
-        <NavLink to='/movies' className={ s.Base }><b>Movies</b></NavLink>
-      </nav>
+      <AppBar />
       
-        {/* <Navigation /> */}
+      <HomePage />
+      
 
         <Routes>
 

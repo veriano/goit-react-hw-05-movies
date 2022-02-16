@@ -1,0 +1,13 @@
+.linksMovies {
+    text-decoration: none;
+    font-size: 23px;
+}
+
+.listOfMovies {
+    list-style: none;
+}
+
+.title {
+    margin-left: 50px;
+    color:blueviolet;
+}

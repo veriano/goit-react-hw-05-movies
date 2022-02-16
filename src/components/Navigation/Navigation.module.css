@@ -1,19 +1,20 @@
 .List {
     display: flex;
     list-style: none;
-}
-
-.Item {
-    margin-right: 20px;
-    font-size: 40px;
+    margin-left: 50px;
 }
 
 .Base {
     text-decoration: none;
     color:blue;
+    margin-right: 20px;
+    font-size: 40px;
 }
 
-.Active {
+.Base:active,
+.Base:focus {
     text-decoration: none;
-    color:brown;
+    color:blueviolet;
+    margin-right: 20px;
+    font-size: 40px;
 }
