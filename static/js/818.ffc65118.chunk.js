@@ -1,1 +1,0 @@
-(self.webpackChunkgoit_react_hw_05_movies=self.webpackChunkgoit_react_hw_05_movies||[]).push([[818],{432:function(){},818:function(e,t,n){"use strict";n.r(t),n.d(t,{default:function(){return c.a}});var u=n(432),c=n.n(u)}}]);
