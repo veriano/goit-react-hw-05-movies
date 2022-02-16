@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import s from './App.module.css';
 import HomePage from './HomePage';
 import AppBar from './AppBar';
