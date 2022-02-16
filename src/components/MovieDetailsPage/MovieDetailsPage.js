@@ -29,6 +29,7 @@ const MovieDetailsPage = () => {
                 release_date: movieData.release_date.slice(0, 4),
                 genres: movieData.genres.slice(0, 3),
             };
+            console.log(newMovieData);
             return newMovieData;
         } catch (error) {
             console.log(error);
@@ -37,7 +38,8 @@ const MovieDetailsPage = () => {
     
     return (
         <div>
-            {movie && movie.map(m => <li><img src={m.poster_path} alt={m.title}/></li>)}
+            {movie && <li><img src={movie.backdrop_path } alt={ movie.title } />
+            { movie.overview }{ movie.genres }</li>}
         </div>
     )
 }
