@@ -6,8 +6,8 @@ function Navigation() {
     return(
         <>
             <nav className={ s.List }>
-            <NavLink to='/' className={ s.Base }><b>Home</b></NavLink>
-            <NavLink to='/movies' className={ s.Base }><b>Movies</b></NavLink>
+            <NavLink to='/' className={ s.Base } ><b>Home</b></NavLink>
+            <NavLink to='/movies' className={ s.Base } ><b>Movies</b></NavLink>
             </nav>
         </>
     )

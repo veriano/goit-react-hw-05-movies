@@ -7,7 +7,11 @@ const axios = require('axios');
 
 
 const HomePage = () => {
-    const[names, setNames] = useState(null);
+    const [names, setNames] = useState(null);
+    
+    useEffect(() => {
+        fetchTrendyMovie().then(data => setNames(data));
+    },[])
 
     const fetchTrendyMovie = async () => {
         const fetch = await axios.get(`${BASE_URL}trending/movie/day?api_key=${KEY}`);
@@ -15,15 +19,13 @@ const HomePage = () => {
         const trendyMovies = fetch.data.results;
         return trendyMovies;
     }
-    useEffect(() => {
-        fetchTrendyMovie().then(setNames);
-    },[])
+   
         return (
             <div>
                 <h1 className={ s.title }>Trending today</h1>
-                <ul className={ s.listOfMovies }>
+                <ul>
                 {names && names.map(name => <li key={ name.id }>
-                    <Link to={`/movies/${name.id}`} className={ s.linksMovies }>{ name.title }</Link>
+                    <Link to={`/movies/${name.id}/*`} className={ s.linksOfMovies }><b>{ name.title }</b></Link>
                     </li>)}
                 </ul>
             </div>

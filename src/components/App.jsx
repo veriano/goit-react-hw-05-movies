@@ -2,7 +2,7 @@
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './HomePage';
 import AppBar from './AppBar';
-// import NoMatch from './NoMatch';
+import NoMatch from './NoMatch';
 import MoviesPage from'./MoviesPage';
 import MovieDetailsPage from './MovieDetailsPage';
 
@@ -14,11 +14,11 @@ function App () {
       <Routes>
         <Route path='/' index element={ <HomePage /> } />
         
-        <Route path='/movies/:movieId' element={ <MovieDetailsPage /> } exact/>
+        <Route path='/movies/:movieId/*' element={ <MovieDetailsPage /> } exact/>
 
         <Route path='/movies' element={ <MoviesPage /> } />
 
-        {/* <Route path='*' element={ <NoMatch /> } /> */}
+        <Route path='*' element={ <NoMatch /> } />
       </Routes>
       
     </div>

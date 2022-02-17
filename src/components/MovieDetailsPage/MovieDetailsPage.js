@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-// import Cast from '../Cast';
-// import Reviews from '../Reviews';
-
+import { useParams, Link, Route, Routes } from 'react-router-dom';
+import templateFunction from '../../templates/card.hbs';
+import Cast from '../Cast';
+import Reviews from '../Reviews';
+import s from './MovieDetailsPage.module.css';
 const axios = require('axios');
 
 
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
-    console.log(movieId);
     const [movie, setMovie] = useState(null);
 
     useEffect(() => {
@@ -21,9 +21,8 @@ const MovieDetailsPage = () => {
         const BASE_URL = 'https://api.themoviedb.org/3/';
 
         try {
-            const response = await axios(`${BASE_URL}movie/${id}?api_key=${API_KEY}&language=en-US`);
-            console.log(response);
-            const movieData = response.data;
+            const movie = await axios(`${BASE_URL}movie/${id}?api_key=${API_KEY}&language=en-US`);
+            const movieData = movie.data;
             const newMovieData = {
                 ...movieData,
                 release_date: movieData.release_date.slice(0, 4),
@@ -38,20 +37,34 @@ const MovieDetailsPage = () => {
     
     return (
         <div>
-            {movie && <li><img src={movie.backdrop_path } alt={ movie.title } />
-            { movie.overview }{ movie.genres }</li>}
-        </div>
-    )
-}
-    //     <>
-    //     <Route path='/movies/:movieId/cast'>
-    //         <Cast />
-    //     </Route>
+            {movie && <div>{templateFunction(movie)}</div>}
+            {/* {movie &&
+                <>
+                    <img src='*' alt={ movie.title } />
+                    <div className={ s.infoOfMovie }>
+                        <h1>{ movie.title }({ movie.release_date })</h1>
+                        <h2>Overview</h2>
+                        <p>{ movie.overview }</p>
+                        <h3>Genres</h3>
+                       
+                    </div>
+                </>
+            } */}
+            <ul className={s.listDetails}>
+                <li><Link to='/movies/:movieId/cast' className={s.link}>Cast</Link></li>
+                <li><Link to='/movies/:movieId/reviews' className={s.link}>Reviews</Link></li>
+            </ul>
+        
+        <Routes>
+            <Route path='/movies/:movieId/cast' element={ <Cast /> } />
 
-    //     <Route path='/movies/:movieId/reviews'>
-    //         <Reviews />
-    //     </Route>
-    //     </>
-    // }
+            <Route path='/movies/:movieId/reviews' element={ <Reviews /> } />
+        </Routes> 
+            
+        </div>
+        
+    )
+    
+}
 
 export default MovieDetailsPage;

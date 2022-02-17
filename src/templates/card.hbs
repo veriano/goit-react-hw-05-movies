@@ -1,0 +1,24 @@
+{{#each this}}
+      <div>
+        {{#if poster_path}}
+          <img
+            {{!-- class='card-tumb__image' --}}
+            src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+            alt='{{title}}'
+          />
+        {{/if}}
+        {{#unless poster_path}}
+          <img
+            src='https://stringfixer.com/files/325551406.jpg'
+            alt='movie photo'
+          />
+        {{/unless}}
+      </div>
+      <ul>
+        <h1>{{title}}({{release_date}})</h1>
+        <h2>Overview</h2>
+        <p>{{overview}}</p>
+        <h3>Genres</h3>
+        <p>{{#each genres}}</p>
+      </ul>
+{{/each}}
