@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, Route, Routes } from 'react-router-dom';
-import templateFunction from '../../templates/card.hbs';
 import Cast from '../Cast';
 import Reviews from '../Reviews';
 import s from './MovieDetailsPage.module.css';
@@ -37,8 +36,8 @@ const MovieDetailsPage = () => {
     
     return (
         <div>
-            {movie && <div>{templateFunction(movie)}</div>}
-            {/* {movie &&
+          
+            {movie &&
                 <>
                     <img src='*' alt={ movie.title } />
                     <div className={ s.infoOfMovie }>
@@ -49,12 +48,14 @@ const MovieDetailsPage = () => {
                        
                     </div>
                 </>
-            } */}
+            }
+            <>
+            {movie &&
             <ul className={s.listDetails}>
-                <li><Link to='/movies/:movieId/cast' className={s.link}>Cast</Link></li>
-                <li><Link to='/movies/:movieId/reviews' className={s.link}>Reviews</Link></li>
-            </ul>
-        
+                <li><Link to={`/movies/${ movie.id }/cast`} className={s.link}>Cast</Link></li>
+                <li><Link to={`/movies/${ movie.id }/reviews`} className={s.link}>Reviews</Link></li>
+            </ul>}
+            </>
         <Routes>
             <Route path='/movies/:movieId/cast' element={ <Cast /> } />
 

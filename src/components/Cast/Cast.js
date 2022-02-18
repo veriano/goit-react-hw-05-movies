@@ -5,10 +5,11 @@ const axios = require('axios');
 
 const Cast = () => {
     const { movieId } = useParams();
-    const [cast, setCast] = useState(null);
+    console.log(movieId);
+    const [casting, setCasting] = useState(null);
 
     useEffect(() => {
-        fetchMovieCredits(movieId).then(setCast);
+        fetchMovieCredits(movieId).then(data => setCasting(data));
     },[movieId])
 
      async function fetchMovieCredits(id) {
@@ -16,7 +17,7 @@ const Cast = () => {
         const BASE_URL = 'https://api.themoviedb.org/3/';
 
         try {
-            const response = await axios(`${BASE_URL}credit/${id}?api_key=${API_KEY}`);
+            const response = await axios.get(`${BASE_URL}credit/${id}?api_key=${API_KEY}`);
             console.log(response.data);
             return response.data;
         } catch (error) {
@@ -25,8 +26,9 @@ const Cast = () => {
     }
     return (
         <>
+            <h1>Hello</h1>
             <ul>
-            { }
+            {/* {casting && casting.map(cast => ) } */}
             </ul>
         </>
     )

@@ -57,7 +57,7 @@ const MoviesPage = () => {
             </form>
 
             <ul>
-                {values && values.map(value => <li key={ value.id }><Link to='/movies/:movieId' className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)}
+                {values && values.map(value => <li key={value.id}><Link to={`/movies/${value.id}`} className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)}
             </ul>
         </>
     )
