@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, Route, Routes } from 'react-router-dom';
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+import { useParams, Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import s from './MovieDetailsPage.module.css';
 const axios = require('axios');
 
@@ -39,31 +38,33 @@ const MovieDetailsPage = () => {
           
             {movie &&
                 <>
-                    <img src='*' alt={ movie.title } />
+                <div className={ s.wrapper }>
+                <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
+                    alt={movie.title} width='300' />
                     <div className={s.infoOfMovie}>
-                    
-                    <h1><b>{movie.title}({movie.release_date})</b></h1>
-                    <p className={ s.text }>User Score: {movie.vote_average * 10}%</p>
-                    <h2>Overview</h2>
-                    <p className={ s.text }>{ movie.overview }</p>
-                    <h3>Genres</h3>
-                       
+                        <h1><b>{movie.title}({movie.release_date})</b></h1>
+                        <p className={ s.text }>User Score: {movie.vote_average * 10}%</p>
+                        <h2><b>Overview</b></h2>
+                        <p className={ s.text }>{ movie.overview }</p>
+                        <h2><b>Genres</b></h2>
+                        <ul className={ s.listOfGenres}>
+                        {movie.genres.map(g => <li key={ uuidv4() } className={ s.item }><p className={ s.text }>{g.name}</p></li>)}
+                        </ul>
+                    </div>
                     </div>
                 </>
             }
             <>
-            {movie &&
-            <ul className={ s.listDetails }>
-                <li><Link to={`/movies/${ movie.id }/cast`} className={ s.link }>Cast</Link></li>
-                <li><Link to={`/movies/${ movie.id }/reviews`} className={ s.link }>Reviews</Link></li>
-            </ul>}
+                {movie &&
+                    <div className={ s.containerOfDetails }>
+                        <h2>Additional information</h2>
+                        <ul>
+                            <li><Link to={`/movies/${movie.id}/cast`} className={s.link}>Cast</Link></li>
+                            <li><Link to={`/movies/${movie.id}/reviews`} className={s.link}>Reviews</Link></li>
+                        </ul>
+                    </div>
+                }
             </>
-        <Routes>
-            <Route path='/movies/:movieId/cast' element={ <Cast /> } />
-
-            <Route path='/movies/:movieId/reviews' element={ <Reviews /> } />
-        </Routes> 
-            
         </div>
         
     )

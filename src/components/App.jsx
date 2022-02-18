@@ -1,5 +1,5 @@
 // import { lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
 import HomePage from './HomePage';
 import AppBar from './AppBar';
 import NoMatch from './NoMatch';
@@ -12,13 +12,15 @@ function App () {
     <div>
       <AppBar />
       <Routes>
-        <Route path='/' index element={ <HomePage /> } />
+        <Route path='/goit-react-hw-05-movies' index element={ <HomePage /> } />
         
-        <Route path='/movies/:movieId/*' element={ <MovieDetailsPage /> } exact/>
+        <Route path='/movies/:movieId' element={ <MovieDetailsPage /> } exact/>
 
         <Route path='/movies' element={ <MoviesPage /> } />
 
         <Route path='*' element={ <NoMatch /> } />
+
+        <Route element={ <Outlet /> } />
       </Routes>
       
     </div>
