@@ -10,9 +10,8 @@ import Reviews from './routes/Reviews';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+        <App />
       <Routes>
-        <Route path='/*' element={ <App /> } />
-
         <Route path='/movies/:movieId/cast' element={ <Cast /> } />
         
         <Route path='/movies/:movieId/reviews' element={ <Reviews /> } />

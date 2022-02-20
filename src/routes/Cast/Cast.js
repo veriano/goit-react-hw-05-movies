@@ -27,7 +27,7 @@ const Cast = () => {
     }
     return (
         <>
-            <h1>Hello</h1>
+            <h1>This is Cast</h1>
             <ul>
             {/* {casting && casting.map(cast => ) } */}
             </ul>

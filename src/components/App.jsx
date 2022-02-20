@@ -14,7 +14,7 @@ function App () {
       <Routes>
         <Route path='/goit-react-hw-05-movies' index element={ <HomePage /> } />
         
-        <Route path='/movies/:movieId' element={ <MovieDetailsPage /> } exact/>
+        <Route path='/movies/:movieId/*' element={ <MovieDetailsPage /> } exact/>
 
         <Route path='/movies' element={ <MoviesPage /> } />
 

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import s from './MovieDetailsPage.module.css';
 const axios = require('axios');
 
 
 const MovieDetailsPage = () => {
+    const location = useLocation();
+    console.log(location);
     const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
 

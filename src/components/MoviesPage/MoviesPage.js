@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
 
 const MoviesPage = () => {
+    const location = useLocation();
     const [name, setName] = useState('');
     const [values, setValues] = useState(null);
 
@@ -57,7 +58,13 @@ const MoviesPage = () => {
             </form>
 
             <ul>
-                {values && values.map(value => <li key={value.id}><Link to={`/movies/${value.id}`} className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)}
+                {values && values.map(value => <li key={value.id}>
+                    <Link to={{
+                    pathname:`/movies/${value.id}`,
+                    state: { from:location},
+                    }} 
+                    className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)
+                }
             </ul>
         </>
     )
