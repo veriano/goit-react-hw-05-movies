@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
         <App />
-      <Suspense fallback={<div>...Загружаем</div>}>
+      <Suspense fallback={<h1>Загружаем...</h1>}>
       <Routes>
         <Route path='/movies/:movieId/cast' element={ <Cast /> } />
         

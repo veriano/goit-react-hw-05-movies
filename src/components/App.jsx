@@ -11,7 +11,7 @@ function App () {
   return (
     <div>
       <AppBar />
-      <Suspense fallback={<h1>...Загружаем</h1>}>
+      <Suspense fallback={<h1>Загружаем...</h1>}>
       <Routes>
         <Route path='/goit-react-hw-05-movies' index element={ <HomePage /> } />
         
