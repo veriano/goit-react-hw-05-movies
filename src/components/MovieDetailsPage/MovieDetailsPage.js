@@ -7,7 +7,6 @@ const axios = require('axios');
 
 const MovieDetailsPage = () => {
     const navigate = useNavigate();
-    console.log(navigate);
     const { slug } = useParams();
     const movieId = slug.match(/[a-z0-9]+$/)[0];
     const [movie, setMovie] = useState(null);
@@ -17,8 +16,9 @@ const MovieDetailsPage = () => {
     }, [movieId])
 
     const onGoBack = () => {
-        navigate("/goit-react-hw-05-movies");
-        navigate("/goit-react-hw-05-movies", { replace: true });
+        navigate(-1);
+        // navigate("/goit-react-hw-05-movies");
+        // navigate("/goit-react-hw-05-movies", { replace: true });
     }
     
         

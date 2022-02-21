@@ -1,14 +1,19 @@
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import slugify from 'slugify';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
 
 const MoviesPage = () => {
-    let navigate = useNavigate();
     const { pathname } = useLocation();
     const [name, setName] = useState('');
-    const [values, setValues] = useState(null);
+    const [values, setValues] = useState(JSON.parse(localStorage.getItem("values")));
+
+    useEffect(() => {
+        if(values) {
+         localStorage.setItem("values",JSON.stringify(values));  
+        }
+    },[values])
 
     const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
 
