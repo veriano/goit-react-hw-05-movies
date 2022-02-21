@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import s from './MovieDetailsPage.module.css';
 const axios = require('axios');
 
 
 const MovieDetailsPage = () => {
-    const location = useLocation();
-    console.log(location);
-    const { movieId } = useParams();
+    const navigate = useNavigate();
+    console.log(navigate);
+    const { slug } = useParams();
+    const movieId = slug.match(/[a-z0-9]+$/)[0];
     const [movie, setMovie] = useState(null);
 
     useEffect(() => {
         fetchMovieById(movieId).then(setMovie);
     }, [movieId])
+
+    const onGoBack = () => {
+        navigate("/goit-react-hw-05-movies");
+        navigate("/goit-react-hw-05-movies", { replace: true });
+    }
     
         
     async function fetchMovieById(id) {
@@ -40,7 +46,8 @@ const MovieDetailsPage = () => {
           
             {movie &&
                 <>
-                <div className={ s.wrapper }>
+                <button type='button' onClick={ onGoBack } className={ s.button }>&#8592; Go back</button>
+                <div className={s.wrapper}>
                 <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
                     alt={movie.title} width='300' />
                     <div className={s.infoOfMovie}>

@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import slugify from 'slugify';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
 
 const MoviesPage = () => {
-    const location = useLocation();
+    let navigate = useNavigate();
+    const { pathname } = useLocation();
     const [name, setName] = useState('');
     const [values, setValues] = useState(null);
+
+    const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
 
     const handleChange = e => {
         const { value } = e.currentTarget;
@@ -35,6 +39,10 @@ const MoviesPage = () => {
             const movie = await axios.get(
                 `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}`);
             console.log(movie.data.results);
+            if (movie.data.results.length < 1) {
+                alert('Пожалуйста введите корректное название или возможно такой фильм не найден');
+                return;
+            }
             return movie.data.results;
         } catch (error) {
             console.log(error);
@@ -59,10 +67,7 @@ const MoviesPage = () => {
 
             <ul>
                 {values && values.map(value => <li key={value.id}>
-                    <Link to={{
-                    pathname:`/movies/${value.id}`,
-                    state: { from:location},
-                    }} 
+                    <Link to={`${pathname}/${makeSlug(`query ${ value.id }`)}`} 
                     className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)
                 }
             </ul>
