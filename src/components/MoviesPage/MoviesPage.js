@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import slugify from 'slugify';
+// import slugify from 'slugify';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
 
@@ -15,7 +15,7 @@ const MoviesPage = () => {
         }
     },[values])
 
-    const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
+    // const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
 
     const handleChange = e => {
         const { value } = e.currentTarget;
@@ -32,7 +32,7 @@ const MoviesPage = () => {
         }
 
         fetchMoviesSearch(name).then(data => setValues(data));
-
+       
         setName('');
     }
 
@@ -72,7 +72,7 @@ const MoviesPage = () => {
 
             <ul>
                 {values && values.map(value => <li key={value.id}>
-                    <Link to={`${pathname}/${makeSlug(`query ${ value.id }`)}`} 
+                    <Link to={`${pathname}/${ value.id }`} 
                     className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)
                 }
             </ul>

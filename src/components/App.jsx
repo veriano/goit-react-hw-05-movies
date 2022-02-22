@@ -13,15 +13,15 @@ function App () {
       <AppBar />
       <Suspense fallback={<h1>Загружаем...</h1>}>
       <Routes>
-        <Route path='/goit-react-hw-05-movies' index element={ <HomePage /> } />
+        <Route path='/goit-react-hw-05-movies' index element={<HomePage />} />
         
-        <Route path='/movies/query=:slug/*' element={ <MovieDetailsPage /> } />
+        <Route path='/movies/:slug/*' element={<MovieDetailsPage />} />
 
-        <Route path='/movies' element={ <MoviesPage /> } />
+        <Route path='/movies' element={<MoviesPage />} />
+          
+        <Route path='*' element={<NoMatch />} />
 
-        <Route path='*' element={ <NoMatch /> } />
-
-        <Route element={ <Outlet /> } />
+        <Route element={<Outlet />} />
       </Routes>
       </Suspense>
     </div>

@@ -17,8 +17,6 @@ const MovieDetailsPage = () => {
 
     const onGoBack = () => {
         navigate(-1);
-        // navigate("/goit-react-hw-05-movies");
-        // navigate("/goit-react-hw-05-movies", { replace: true });
     }
     
         
