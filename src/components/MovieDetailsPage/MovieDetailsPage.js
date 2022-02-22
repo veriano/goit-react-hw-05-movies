@@ -7,8 +7,9 @@ const axios = require('axios');
 
 const MovieDetailsPage = () => {
     const navigate = useNavigate();
-    const { slug } = useParams();
-    const movieId = slug.match(/[a-z0-9]+$/)[0];
+    // const { slug } = useParams();
+    // const movieId = slug.match(/[a-z0-9]+$/)[0];
+    const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
 
     useEffect(() => {

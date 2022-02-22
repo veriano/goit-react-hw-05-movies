@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 // import slugify from 'slugify';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
@@ -7,13 +7,51 @@ const axios = require('axios');
 const MoviesPage = () => {
     const { pathname } = useLocation();
     const [name, setName] = useState('');
-    const [values, setValues] = useState(JSON.parse(localStorage.getItem("values")));
+    const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("movies")));
+    let [searchParams, setSearchParams] = useSearchParams();
+    let query = searchParams.get('name');
+    
+    useEffect(() => {
+        if (!query) return;
+        let abortController = new AbortController();
+
+        async function fetchMoviesSearch(query) {
+        const API_KEY = '61d280fbc4e0ab3fee827783c53f7600';
+        const BASE_URL = 'https://api.themoviedb.org/3/';
+
+            try {
+            const movie = await axios.get(
+                `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}`,{ signal: abortController.signal});
+            console.log(movie.data.results);
+                if (movie.data.results.length < 1) {
+                alert('Пожалуйста введите корректное название или возможно такой фильм не найден');
+                return;
+                }
+
+                if (!abortController.signal.aborted) {
+                const data = movie.data.results;
+                setMovies(data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        if (query) {
+            fetchMoviesSearch();
+        }
+
+        return () => {
+            abortController.abort();
+        };
+
+    }, [ query ]);
 
     useEffect(() => {
-        if(values) {
-         localStorage.setItem("values",JSON.stringify(values));  
+        if(movies) {
+         localStorage.setItem("movies",JSON.stringify(movies));  
         }
-    },[values])
+    },[movies])
 
     // const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
 
@@ -23,40 +61,27 @@ const MoviesPage = () => {
         setName(value);
     }
 
-    const handleSubmit = e => {
+    const onSubmit = e => { 
         e.preventDefault();
 
-        if(name.trim() === '') {
+        if (name.trim() === '') {
             alert('Пожалуйста введите поисковое слово.');
             return;
         }
+            let formData = new FormData(e.currentTarget);
+            let newUser = formData.get("name");
+            if (!newUser) return;
+            setSearchParams({ user: newUser });
 
-        fetchMoviesSearch(name).then(data => setValues(data));
-       
-        setName('');
+        setSearchParams({ query: newUser });
+
+        // setName(searchParams.get('query'));
     }
 
-    async function fetchMoviesSearch(query) {
-        const API_KEY = '61d280fbc4e0ab3fee827783c53f7600';
-        const BASE_URL = 'https://api.themoviedb.org/3/';
-
-        try {
-            const movie = await axios.get(
-                `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}`);
-            console.log(movie.data.results);
-            if (movie.data.results.length < 1) {
-                alert('Пожалуйста введите корректное название или возможно такой фильм не найден');
-                return;
-            }
-            return movie.data.results;
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     return(
         <>
-            <form className={ s.SearchForm } onSubmit={ handleSubmit }>
+            <form className={ s.SearchForm } onSubmit={ onSubmit }>
             <input
                 className={ s.SearchFormInput }
                 type="text"
@@ -71,9 +96,9 @@ const MoviesPage = () => {
             </form>
 
             <ul>
-                {values && values.map(value => <li key={value.id}>
-                    <Link to={`${pathname}/${ value.id }`} 
-                    className={ s.linksOfMovies }><b>{value.original_title}</b></Link></li>)
+                {movies && movies.map(movie => <li key={movie.id}>
+                    <Link to={`${pathname}/${ movie.id }`} 
+                    className={ s.linksOfMovies }><b>{movie.original_title}</b></Link></li>)
                 }
             </ul>
         </>

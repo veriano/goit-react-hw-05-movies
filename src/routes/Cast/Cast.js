@@ -3,26 +3,32 @@ import { useParams } from 'react-router-dom';
 const axios = require('axios');
 
 
-const Cast = () => {
+const Cast = ({ casts = [] }) => {
     const { movieId } = useParams();
-    console.log(movieId);
-    const [casting, setCasting] = useState(null);
-    console.log(casting);
+    const [castData, setCastData] = useState([]);
+    console.log(castData);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchMovieCredits(movieId).then(data => setCasting(data));
+        fetchMovieCredits(movieId).then(data => setCastData(data));
     },[movieId])
 
-     async function fetchMovieCredits(credit_id) {
+    async function fetchMovieCredits(movieId) {
+        setLoading(true);
         const API_KEY = '61d280fbc4e0ab3fee827783c53f7600';
-        const BASE_URL = 'https://api.themoviedb.org/3/';
+        axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 
         try {
-            const response = await axios(`${BASE_URL}credit/${credit_id}?api_key=${API_KEY}`);
+            const response = await axios.get(`movie/${movieId}credits?api_key=${API_KEY}`);
             console.log(response);
-            return response.data;
+            const cast = await response.data.cast;
+            console.log(cast);
+            return cast;
         } catch (error) {
-            console.log(error);
+            setError(error);
+        } finally {
+            setLoading(false);
         }
     }
     return (
