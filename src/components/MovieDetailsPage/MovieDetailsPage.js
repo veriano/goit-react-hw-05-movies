@@ -7,8 +7,6 @@ const axios = require('axios');
 
 const MovieDetailsPage = () => {
     const navigate = useNavigate();
-    // const { slug } = useParams();
-    // const movieId = slug.match(/[a-z0-9]+$/)[0];
     const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
 
@@ -33,7 +31,6 @@ const MovieDetailsPage = () => {
                 release_date: movieData.release_date.slice(0, 4),
                 genres: movieData.genres.slice(0, 3),
             };
-            console.log(newMovieData);
             return newMovieData;
         } catch (error) {
             console.log(error);

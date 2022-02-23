@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-// import slugify from 'slugify';
 import s from './MoviesPage.module.css';
 const axios = require('axios');
 
@@ -51,7 +50,6 @@ const MoviesPage = () => {
         }
     },[movies])
 
-    // const makeSlug = string => slugify(string,{ replacement:'=', lower: true });
 
     const handleChange = e => {
         const { value } = e.currentTarget;
@@ -85,7 +83,6 @@ const MoviesPage = () => {
                     name="query"
                 onChange={ handleChange }
                 autoComplete="off"
-                // autoFocus
                 placeholder="Search movies"
             />
             <button type="submit" className={ s.SearchFormButton }>

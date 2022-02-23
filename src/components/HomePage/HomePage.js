@@ -15,7 +15,6 @@ const HomePage = () => {
 
     const fetchTrendyMovie = async () => {
         const fetch = await axios.get(`${BASE_URL}trending/movie/day?api_key=${KEY}`);
-        console.log(fetch);
         const trendyMovies = fetch.data.results;
         return trendyMovies;
     }

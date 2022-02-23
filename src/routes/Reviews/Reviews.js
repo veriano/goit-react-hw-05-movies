@@ -6,9 +6,7 @@ const axios = require('axios');
 
 const Reviews = () => {
     const { movieId } = useParams();
-    console.log(movieId);
     const [reviews, setReviews] = useState([]);
-    console.log(reviews);
 
     useEffect(() => {
         fetchMovieCredits(movieId).then(setReviews);
