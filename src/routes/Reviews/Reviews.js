@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import s from './Reviews.module.css';
 const axios = require('axios');
 
 
 const Reviews = () => {
     const { movieId } = useParams();
     console.log(movieId);
-    const [reviews, setReviews] = useState(null);
+    const [reviews, setReviews] = useState([]);
     console.log(reviews);
 
     useEffect(() => {
@@ -18,15 +19,29 @@ const Reviews = () => {
         const BASE_URL = 'https://api.themoviedb.org/3/';
 
         try {
-            const response = await axios(`${BASE_URL}review/${id}?api_key=${API_KEY}`);
-            console.log(response.data);
-            return response.data;
+            const response = await axios(`${BASE_URL}movie/${id}/reviews?api_key=${API_KEY}`);
+            return response.data.results;
         } catch (error) {
             console.log(error);
         }
     }
     return (
-    <h1>This is Reviews</h1>
+        <>
+            <ul>
+                {reviews && reviews.map(review =>
+                    <li key={review.id}>
+                        <h2>Author: {review.author}</h2>
+                        <p className={s.text}>{review.content}</p>
+                    </li>
+                )}
+
+                {(reviews.length < 1) && <p className={s.text}>We don't have any reviews for this movie.</p>}  
+                    
+                  
+            </ul>
+
+             
+        </>
     )
 }
 export default Reviews;

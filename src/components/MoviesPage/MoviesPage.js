@@ -6,46 +6,44 @@ const axios = require('axios');
 
 const MoviesPage = () => {
     const { pathname } = useLocation();
-    const [name, setName] = useState('');
+    const [query, setQuery] = useState('');
     const [movies, setMovies] = useState(JSON.parse(localStorage.getItem("movies")));
     let [searchParams, setSearchParams] = useSearchParams();
-    let query = searchParams.get('name');
-    
+    const searchQuery = searchParams.get('query');
+
     useEffect(() => {
-        if (!query) return;
+        if (!searchQuery) return;
         let abortController = new AbortController();
 
-        async function fetchMoviesSearch(query) {
+        async function fetchMoviesSearch() {
         const API_KEY = '61d280fbc4e0ab3fee827783c53f7600';
         const BASE_URL = 'https://api.themoviedb.org/3/';
 
             try {
             const movie = await axios.get(
-                `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}`,{ signal: abortController.signal});
-            console.log(movie.data.results);
+                `${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`, {signal: abortController.signal,});
+                
                 if (movie.data.results.length < 1) {
                 alert('Пожалуйста введите корректное название или возможно такой фильм не найден');
                 return;
                 }
 
                 if (!abortController.signal.aborted) {
-                const data = movie.data.results;
-                setMovies(data);
+                    let data = await movie.data.results;
+                    setMovies(data);
                 }
             } catch (error) {
                 console.log(error);
             }
         }
-
-        if (query) {
+        if (searchQuery) {
             fetchMoviesSearch();
         }
 
         return () => {
             abortController.abort();
         };
-
-    }, [ query ]);
+    }, [ searchQuery ]);
 
     useEffect(() => {
         if(movies) {
@@ -58,36 +56,36 @@ const MoviesPage = () => {
     const handleChange = e => {
         const { value } = e.currentTarget;
 
-        setName(value);
+        setQuery(value);
     }
 
     const onSubmit = e => { 
         e.preventDefault();
 
-        if (name.trim() === '') {
+        if (query.trim() === '') {
             alert('Пожалуйста введите поисковое слово.');
             return;
         }
-            let formData = new FormData(e.currentTarget);
-            let newUser = formData.get("name");
-            if (!newUser) return;
-            setSearchParams({ user: newUser });
 
-        setSearchParams({ query: newUser });
+        let formData = new FormData(e.currentTarget);
+        let newQuery = formData.get("query");
+        if (!newQuery) return;
+        setSearchParams({ query: newQuery });
 
-        // setName(searchParams.get('query'));
+        setQuery('');
     }
 
 
     return(
         <>
             <form className={ s.SearchForm } onSubmit={ onSubmit }>
-            <input
+            <input defaultValue={ searchQuery ?? undefined }
                 className={ s.SearchFormInput }
-                type="text"
+                    type="text"
+                    name="query"
                 onChange={ handleChange }
                 autoComplete="off"
-                autoFocus
+                // autoFocus
                 placeholder="Search movies"
             />
             <button type="submit" className={ s.SearchFormButton }>
