@@ -8,6 +8,7 @@ const axios = require('axios');
 const MovieDetailsPage = () => {
     const navigate = useNavigate();
     const { movieId } = useParams();
+    console.log(movieId);
     const [movie, setMovie] = useState(null);
 
     useEffect(() => {

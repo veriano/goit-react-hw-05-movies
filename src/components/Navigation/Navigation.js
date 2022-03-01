@@ -7,7 +7,7 @@ function Navigation() {
         <>
             <nav>
                 <ul className={s.List}>
-                    <li><NavLink to='/goit-react-hw-05-movies' className={ s.Base }><b>Home</b></NavLink></li>
+                    <li><NavLink to='/' className={ s.Base }><b>Home</b></NavLink></li>
                     <li><NavLink to='/movies' className={s.Base} ><b>Movies</b></NavLink></li>
                 </ul>
             </nav>

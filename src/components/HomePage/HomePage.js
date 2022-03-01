@@ -23,9 +23,9 @@ const HomePage = () => {
             <div>
                 <h1 className={ s.title }>Trending today</h1>
                 <ul>
-                {names && names.map(name => <li key={ name.id }>
-                    <Link to={`/movies/${name.id}`}
-                        className={s.linksOfMovies}><b>{name.title}</b>
+                {names && names.map(({ id, title }) => <li key={ id }>
+                    <Link to={`/movies/${ id }`}
+                        className={s.linksOfMovies}><b>{ title }</b>
                     </Link>
                     </li>)}
                 </ul>
