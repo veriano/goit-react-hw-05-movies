@@ -9,16 +9,16 @@ const Reviews = lazy(() => import('./routes/Reviews'));
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-        <App />
+    <BrowserRouter basename="/goit-react-hw-05-movies/">
+      <App />
       <Suspense fallback={<h1>Загружаем...</h1>}>
       <Routes>
         <Route path='/movies/:movieId/cast' element={ <Cast /> } />
         
         <Route path='/movies/:movieId/reviews' element={ <Reviews /> } />
       </Routes>
-    </Suspense>
-  </BrowserRouter>
+      </Suspense>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
