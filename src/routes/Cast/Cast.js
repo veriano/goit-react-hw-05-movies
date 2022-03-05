@@ -4,7 +4,6 @@ const axios = require('axios');
 
 const Cast = ({ casts = [] }) => {
   const { movieId } = useParams();
-  console.log(movieId);
   const [castData, setCastData] = useState([]);
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const Cast = ({ casts = [] }) => {
         `movie/${movieId}/credits?api_key=${API_KEY}`
       );
       const cast = await response.data.cast;
-      console.log(cast);
       return cast;
     } catch (error) {
       console.log(error);
